@@ -2,6 +2,7 @@
 
 Bargain search engine for Auctionet customers
 
-##Versions
+##Requirements
 Ruby 2.2.2
 Rails 4.2.0
+Postgres
