@@ -7,11 +7,14 @@ describe Article do
       query = "per_page=12"
       article_list = Article.get_articles(query)
 
-      expect(article_list).to be_kind_of(Array).or be_kind_of(Fixnum)
+      expect(article_list).to be_kind_of(Array)
+      expect(article_list.length).to eq(12)
+    end
 
-      unless article_list.is_a? Fixnum
-        expect(article_list.length).to eq(12)
-      end
+    it 'passes http status code if not 200' do
+      query = "per_page=12&force_response_code=410"
+      article_list = Article.get_articles(query)
+      expect(article_list).to eq(410)
     end
   end
 end
