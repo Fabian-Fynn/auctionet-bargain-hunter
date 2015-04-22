@@ -8,7 +8,6 @@ describe ArticlesHelper do
       it "returns valid hash" do
         response = File.read("spec/test_data.json")
 
-        result = Hash.new
         result = ArticlesHelper::parse_json(response)
 
         count = result.length
