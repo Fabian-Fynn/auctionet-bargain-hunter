@@ -4,7 +4,13 @@ class ArticlesController < ApplicationController
   # GET /articles
   # GET /articles.json
   def index
-    @articles = Article.all
+    if params[:query].blank?
+      query = "bid_asc&per_page=10"
+    else
+      query = params[:query]
+    end
+
+    @articles = Article.get_articles(query)
   end
 
   # GET /articles/1
@@ -69,6 +75,6 @@ class ArticlesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def article_params
-      params[:article]
+      params.require(:article).permit(:item_id)
     end
 end
