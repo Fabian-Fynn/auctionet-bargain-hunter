@@ -5,7 +5,7 @@ class ArticlesController < ApplicationController
   # GET /articles.json
   def index
     if params[:query].blank?
-      query = "bid_asc&per_page=10"
+      query = "order=ending&order=bid_asc&per_page=10"
     else
       query = params[:query]
     end

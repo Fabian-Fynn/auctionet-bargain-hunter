@@ -8,13 +8,44 @@
   </thead>
 
   <tbody>
-    <% @articles.each do |article| %>
+    <% @articles.each { |article| %>
+      <div class="article">
+        <div class="title">
+          <h2><%= article[:title] %></h2>
+        </div>
+
+        <img src="<%= article[:images][0][:mini] %>" alt="<%= article[:title] %>" class="item_image">
+        <div class="ending">Ending in: <%= article[:ends_at] %></div>
+        <div class="estimate">
+          <p>Estimated Value: <%= article[:estimate]%> <%= article[:currency] %></p>
+        </div>
+
+        <div class="current-bid" >
+          <p>Current bid:
+            <%=
+              current_bid = "0 SEK"
+              if article[:bids].any?
+                current_bid = "#{article[:bids][0][:amount]} "
+              else
+                current_bid = "0 "
+              end
+
+              current_bid += article[:currency]
+            %>
+          </p>
+        </div>
+
+        <div class="location">
+          <p>Location: <%= article[:location] %></p>
+        </div>
+        <div class="link"><a href="<%= article[:url] %>">Check on Auctionet.com</a></div>
+      </div>
       <tr>
         <td><%= link_to 'Show', article %></td>
         <td><%= link_to 'Edit', edit_article_path(article) %></td>
         <td><%= link_to 'Destroy', article, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
-    <% end %>
+    <% } %>
   </tbody>
 </table>
 
