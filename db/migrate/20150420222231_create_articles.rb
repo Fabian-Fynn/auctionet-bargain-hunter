@@ -1,5 +1,5 @@
 class CreateArticles < ActiveRecord::Migration
-  def change
+  def create
     create_table :articles do |t|
 
       t.timestamps null: false
