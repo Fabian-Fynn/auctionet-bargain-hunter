@@ -15,7 +15,7 @@
         </div>
 
         <img src="<%= article[:images][0][:mini] %>" alt="<%= article[:title] %>" class="item_image">
-        <div class="ending">Ending in: <%= article[:ends_at] %></div>
+        <div class="ending">Ending in: <%= distance_of_time_in_words(Time.now, Time.at(article[:ends_at]), include_seconds: true) %></div>
         <div class="estimate">
           <p>Estimated Value: <%= article[:estimate]%> <%= article[:currency] %></p>
         </div>
