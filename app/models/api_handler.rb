@@ -18,9 +18,27 @@ class ApiHandler
     case request
     when "ending"
       query = "order=ending&per_page=100"
+      response = call_api(query)
+      check_response(response)
     when "bargains"
-      query = "order=ending&per_page=1"
+      query = "order=bid_asc&per_page=100"
+      response = call_api(query)
+      check_response(response)
+      response = response.sort_by { |item| item[:estimate] }.reverse![0..11]
     end
-    call_api(query)
+    return response
+  end
+
+  def self.check_response(response)
+    if response.class == Array
+      return true
+    elsif response == 404
+      return false
+    elsif response == 503
+      return false
+    elsif response == 500
+      return false
+    end
+
   end
 end
