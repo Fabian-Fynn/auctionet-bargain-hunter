@@ -4,15 +4,14 @@ class ArticlesController < ApplicationController
   # GET /articles
   # GET /articles.json
   def index
-    if params[:query].blank?
-      query = "order=ending&per_page=100"
-    else
-      query = params[:query]
-    end
-
-    @items = ApiHandler.get_items(query)
+    request = "ending"
+    @items = ApiHandler.get_items(request)
   end
 
+  def bargains
+    request = "bargains"
+    @items = ApiHandler.get_items(request)
+  end
   # GET /articles/1
   # GET /articles/1.json
   def show

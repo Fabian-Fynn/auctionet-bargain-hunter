@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'articles/bargains' => 'articles#bargains', :as => "bargain_articles"
+
   resources :articles
 
   devise_for :users, :controllers => { sessions: 'users/sessions' }
