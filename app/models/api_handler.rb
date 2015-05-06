@@ -4,7 +4,7 @@ require "httparty"
 class ApiHandler
   include HTTParty
 
-  def self.get_articles(query)
+  def self.get_items(query)
     response = get("https://www.auctionet.com/api/v2/items.json?" + query)
 
     if response.code == 200
