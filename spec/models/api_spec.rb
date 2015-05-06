@@ -1,11 +1,11 @@
 require 'rails_helper'
 require 'json'
 
-describe "In general", Article do
+describe "In general", ApiHandler do
   context ', while API processing' do
     it 'retrieves data from API' do
       query = "per_page=12"
-      article_list = Article.get_articles(query)
+      article_list = ApiHandler.get_articles(query)
 
       expect(article_list).to be_kind_of(Array)
       expect(article_list.length).to eq(12)
@@ -13,14 +13,14 @@ describe "In general", Article do
 
     it 'passes http status code if not 200' do
       query = "per_page=12&force_response_code=410"
-      article_list = Article.get_articles(query)
+      article_list = ApiHandler.get_articles(query)
       expect(article_list).to eq(410)
     end
   end
 
 end
 
-describe "An Instance of", Article do
+describe "An Instance of", ApiHandler do
   before :each do
     @article = Article.create(item_id: 33)
   end

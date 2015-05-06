@@ -10,7 +10,7 @@ class ArticlesController < ApplicationController
       query = params[:query]
     end
 
-    @articles = Article.get_articles(query)
+    @items = ApiHandler.get_articles(query)
   end
 
   # GET /articles/1
