@@ -10,10 +10,12 @@ Rails 4.2.0
 Postgres
 
 ##TODO
-Provide different API calls
+~~Provide different API calls~~
 
 Add items to Wishlist
 
+Style
+
 Cache API calls
 
-(Optiional) Continous Deployment
+(Optional) Continous Deployment
