@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   get 'articles/bargains' => 'articles#bargains', :as => "bargain_articles"
+  get 'articles/unrecognized' => 'articles#unrecognized', :as => "unrecognized_articles"
+  get 'articles/trending' => 'articles#trending', :as => "trending_articles"
 
   resources :articles
 

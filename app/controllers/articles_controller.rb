@@ -1,16 +1,34 @@
 class ArticlesController < ApplicationController
   before_action :set_article, only: [:show, :edit, :update, :destroy]
-
+  # layout "shared_index_layout", only: [:ending, :bargains, :trending, :unrecognized]
   # GET /articles
   # GET /articles.json
   def index
     request = "ending"
     @items = ApiHandler.get_items(request)
+    @title = "Soon ending Auctions"
+    render "items"
   end
 
   def bargains
     request = "bargains"
     @items = ApiHandler.get_items(request)
+    @title = "Bargains"
+    render "items"
+  end
+
+  def trending
+    request = "trending"
+    @items = ApiHandler.get_items(request)
+    @title = "Trending Items"
+    render "items"
+  end
+
+  def unrecognized
+    request = "unrecognized"
+    @items = ApiHandler.get_items(request)
+    @title = "Unrecognized Items"
+    render "items"
   end
   # GET /articles/1
   # GET /articles/1.json

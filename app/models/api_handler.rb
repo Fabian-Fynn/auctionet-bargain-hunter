@@ -17,7 +17,7 @@ class ApiHandler
   def self.get_items(request)
     case request
     when "ending"
-      query = "order=ending&per_page=100"
+      query = "order=ending&per_page=12"
       response = call_api(query)
       check_response(response)
     when "bargains"
@@ -25,7 +25,18 @@ class ApiHandler
       response = call_api(query)
       check_response(response)
       response = response.sort_by { |item| item[:estimate] }.reverse![0..11]
+    when "unrecognized"
+      query = "order=bids_count_asc&per_page=100"
+      response = call_api(query)
+      check_response(response)
+      response = response.sort_by { |item| item[:ends_at] }[0..11]
+    when "trending"
+      query = "order=bid_on&per_page=100"
+      response = call_api(query)
+      check_response(response)
+      response = response.sort_by { |item| item[:bids].count }.reverse![0..11]
     end
+
     return response
   end
 
