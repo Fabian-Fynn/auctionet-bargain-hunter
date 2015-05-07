@@ -1,0 +1,5 @@
+
+<%= form_tag search_articles_path(:search), method: "get", class: "navbar-form"  do %>
+      <%= text_field_tag :search, params[:search], id: "search_field", placeholder: "Keyword" %>
+      <%= submit_tag "Search", name: nil %>
+<% end %>

@@ -35,6 +35,10 @@ class ApiHandler
       response = call_api(query)
       check_response(response)
       response = response.sort_by { |item| item[:bids].count }.reverse![0..11]
+    else
+      query = "q=" + request
+      response = call_api(query)
+      check_response(response)
     end
 
     return response

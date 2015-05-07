@@ -30,6 +30,13 @@ class ArticlesController < ApplicationController
     @title = "Unrecognized Items"
     render "items"
   end
+
+  def search
+    @items = ApiHandler.get_items(params[:search])
+    @title = "Search results for: " + params[:search]
+    render "items"
+  end
+
   # GET /articles/1
   # GET /articles/1.json
   def show
