@@ -1,6 +1,7 @@
 class ArticlesController < ApplicationController
   before_action :set_article, only: [:show, :edit, :update, :destroy]
-  # layout "shared_index_layout", only: [:ending, :bargains, :trending, :unrecognized]
+  before_filter :authenticate_user!
+
   # GET /articles
   # GET /articles.json
   def index
@@ -45,6 +46,7 @@ class ArticlesController < ApplicationController
   # GET /articles/new
   def new
     @article = Article.new
+    respond_with(@article)
   end
 
   # GET /articles/1/edit
@@ -54,11 +56,32 @@ class ArticlesController < ApplicationController
   # POST /articles
   # POST /articles.json
   def create
-    @article = Article.new(article_params)
+    @item = ApiHandler.get_items(article_params[:item_id])[0]
+    @article = Article.new(
+      item_id: @item[:id],
+      auction_id: @item[:auction_id],
+      estimate: @item[:estimate],
+      next_bid_amount: @item[:next_bid_amount],
+      category_id: @item[:category_id],
+      ends_at: @item[:ends_at],
+      currency: @item[:currency],
+      state: @item[:state],
+      title: @item[:title],
+      condition: @item[:condition],
+      item_type: @item[:type],
+      location: @item[:location],
+      url: @item[:url],
+      transport_price: @item[:transport_price],
+      description: @item[:description],
+      reserve_met: @item[:reserve_met],
+      user_id: current_user.id
+    )
+
+
 
     respond_to do |format|
       if @article.save
-        format.html { redirect_to @article, notice: 'Article was successfully created.' }
+        format.html { redirect_to @article, notice: 'Item successfully added to Wishlist.' }
         format.json { render :show, status: :created, location: @article }
       else
         format.html { render :new }
@@ -99,6 +122,23 @@ class ArticlesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def article_params
-      params.require(:article).permit(:item_id)
+      params.require(:article).permit([
+        :item_id,
+        :auction_id,
+        :estimate,
+        :next_bid_amount,
+        :category_id,
+        :ends_at,
+        :currency,
+        :state,
+        :title,
+        :condition,
+        :item_type,
+        :location,
+        :url,
+        :transport_price,
+        :description,
+        :reserve_met
+      ])
     end
 end
