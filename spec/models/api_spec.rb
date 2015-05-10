@@ -4,7 +4,7 @@ require 'json'
 describe "In general", ApiHandler do
   context ', while API processing' do
     it 'retrieves data from API' do
-      query = "per_page=12"
+      query = "items.json?per_page=12"
       article_list = ApiHandler.call_api(query)
 
       expect(article_list).to be_kind_of(Array)
@@ -12,7 +12,7 @@ describe "In general", ApiHandler do
     end
 
     it 'passes http status code if not 200' do
-      query = "per_page=12&force_response_code=410"
+      query = "items.json?per_page=12&force_response_code=410"
       article_list = ApiHandler.call_api(query)
       expect(article_list).to eq(410)
     end

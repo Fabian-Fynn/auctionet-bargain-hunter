@@ -19,6 +19,7 @@ describe "Wishlist" do
   it "adds item to wishlist" do
     item_title = within(".item:first-child") { page.find("h3").text }
     click_button("Add to Wishlist", match: :first)
+
     expect(page).to have_content("Item successfully added to Wishlist.")
     expect(Article.where(title: item_title)).to exist
   end
