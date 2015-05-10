@@ -2,11 +2,10 @@ class ArticlesController < ApplicationController
   before_action :set_article, only: [:show, :edit, :update, :destroy]
   before_filter :authenticate_user!
 
-  # GET /articles
-  # GET /articles.json
   def index
     request = "ending"
     @items = ApiHandler.get_items(request)
+    filter_items_on_wishlist(@items, current_user.id)
     @title = "Soon ending Auctions"
     render "items"
   end
@@ -15,6 +14,7 @@ class ArticlesController < ApplicationController
     request = "bargains"
     @items = ApiHandler.get_items(request)
     @title = "Bargains"
+    filter_items_on_wishlist(@items, current_user.id)
     render "items"
   end
 
@@ -22,6 +22,7 @@ class ArticlesController < ApplicationController
     request = "trending"
     @items = ApiHandler.get_items(request)
     @title = "Trending Items"
+    filter_items_on_wishlist(@items, current_user.id)
     render "items"
   end
 
@@ -29,12 +30,14 @@ class ArticlesController < ApplicationController
     request = "unrecognized"
     @items = ApiHandler.get_items(request)
     @title = "Unrecognized Items"
+    filter_items_on_wishlist(@items, current_user.id)
     render "items"
   end
 
   def search
     @items = ApiHandler.get_items(params[:search])
     @title = "Search results for: " + params[:search]
+    filter_items_on_wishlist(@items, current_user.id)
     render "items"
   end
 
@@ -50,23 +53,18 @@ class ArticlesController < ApplicationController
     Article.batch_destroy(current_user.id)
     redirect_to wishlist_url, notice: 'All ended Items removed successfully.'
   end
-  # GET /articles/1
-  # GET /articles/1.json
+
   def show
   end
 
-  # GET /articles/new
   def new
     @article = Article.new
     respond_with(@article)
   end
 
-  # GET /articles/1/edit
   def edit
   end
 
-  # POST /articles
-  # POST /articles.json
   def create
     @item = ApiHandler.get_items(article_params[:item_id])[0]
     @article = Article.new(
@@ -90,8 +88,6 @@ class ArticlesController < ApplicationController
       user_id: current_user.id
     )
 
-
-
     respond_to do |format|
       if @article.save
         format.html { redirect_to wishlist_url, notice: 'Item successfully added to Wishlist.' }
@@ -103,8 +99,6 @@ class ArticlesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /articles/1
-  # PATCH/PUT /articles/1.json
   def update
     respond_to do |format|
       if @article.update(article_params)
@@ -117,8 +111,6 @@ class ArticlesController < ApplicationController
     end
   end
 
-  # DELETE /articles/1
-  # DELETE /articles/1.json
   def destroy
     # @article = Article.where(id: params[:id])
     @article.destroy
@@ -132,6 +124,16 @@ class ArticlesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_article
       @article = Article.find(params[:id])
+    end
+
+    def filter_items_on_wishlist(items, user_id)
+      articles = Article.where(user_id: user_id)
+      items.each { |item|
+        item[:on_wishlist] = false
+        if articles.pluck(:item_id).include? item[:id]
+          item[:on_wishlist] = true
+        end
+      }
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
