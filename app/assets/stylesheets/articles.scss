@@ -1,9 +1,8 @@
 // Place all the styles related to the Articles controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
 .items {
-
-
   .item {
     width: 30%;
     height: auto;
@@ -32,14 +31,20 @@
   }
 
   .ending {
-    color: #c66;
     font-weight: bold;
   }
 
   .min-bid {
-    color: #6c6;
     font-weight: bold;
   }
+}
+
+.green {
+  color: #6c6;
+}
+
+.red {
+  color: #c66;
 }
 
 #masonry-container {
@@ -56,4 +61,3 @@
 .clearfix:before, .clearfix:after { content: ""; display: table; }
 .clearfix:after { clear: both; }
 .clearfix { zoom: 1; }
-

@@ -1,0 +1,54 @@
+
+      <div class="item">
+        <div class="title">
+          <h3><%= item[:title] %></h3>
+        </div>
+
+        <img src="<%=
+          if item[:images]
+            item[:images][0][:w640]
+          else
+            item[:image]
+          end
+          %>" alt="<%= item[:title] %>" title="<%= item[:description] %>" class="item_image">
+        <div class="ending">
+          <p>Ending in:
+            <% if Time.at(item[:ends_at]) > Time.now %>
+               <span class="green"><%= distance_of_time_in_words(Time.now, Time.at(item[:ends_at]), include_seconds: true) %></span>
+            <% else %>
+                <span class="red">Ended</span>
+            <%  end %>
+
+          </p>
+        </div>
+        <div class="estimate">
+          <p><strong>Estimated Value:</strong> <%= "#{item[:estimate]}" + item[:currency] %></p>
+        </div>
+
+        <div class="min-bid">
+          <p>Next Bid Amount: <span class="green">
+          <%=
+              min_bid = "#{item[:next_bid_amount]} " + item[:currency]
+            %> </span></p>
+        </div>
+
+        <div class="location">
+          <p><strong>Location:</strong> <%= item[:location] %></p>
+          <p><strong>Shipment:</strong> <%= item[:transport_price] %></p>
+        </div>
+
+        <div class="condition">
+          <p><strong>Item condition:</strong> <%= item[:condition]%> </p>
+        </div>
+
+        <div class="favorite">
+          <%= if @title != "Wishlist:"
+            button_to 'Add to Wishlist', {controller: "articles", action: "create", article: { item_id: item[:id] }} , method: :post, class: "btn btn-default"
+          else
+            button_to 'Remove from Wishlist', {controller: "articles", action: "destroy", id: item[:id]} , method: :delete, class: "btn btn-default"
+          end %>
+          <a href="<%= item[:url] %>"><button class="btn btn-default">Check on Auctionet</div>
+        </div>
+
+
+      </button></a>

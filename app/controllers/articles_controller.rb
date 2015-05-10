@@ -38,6 +38,16 @@ class ArticlesController < ApplicationController
     render "items"
   end
 
+  def wishlist
+    @items = Article.update_articles(current_user.id)
+    @items = @items.sort_by { |item| item[:ends_at] }
+    @title = "Wishlist:"
+    # if @items.empty?
+    #   flash[:error] = "No items found!"
+    # end
+    render "items"
+  end
+
   # GET /articles/1
   # GET /articles/1.json
   def show
@@ -74,6 +84,7 @@ class ArticlesController < ApplicationController
       transport_price: @item[:transport_price],
       description: @item[:description],
       reserve_met: @item[:reserve_met],
+      image: @item[:images][0][:w640],
       user_id: current_user.id
     )
 
@@ -81,7 +92,7 @@ class ArticlesController < ApplicationController
 
     respond_to do |format|
       if @article.save
-        format.html { redirect_to @article, notice: 'Item successfully added to Wishlist.' }
+        format.html { redirect_to wishlist_url, notice: 'Item successfully added to Wishlist.' }
         format.json { render :show, status: :created, location: @article }
       else
         format.html { render :new }
@@ -107,9 +118,10 @@ class ArticlesController < ApplicationController
   # DELETE /articles/1
   # DELETE /articles/1.json
   def destroy
+    # @article = Article.where(id: params[:id])
     @article.destroy
     respond_to do |format|
-      format.html { redirect_to articles_url, notice: 'Article was successfully destroyed.' }
+      format.html { redirect_to wishlist_url, notice: 'Item was successfully removed.' }
       format.json { head :no_content }
     end
   end
@@ -136,9 +148,11 @@ class ArticlesController < ApplicationController
         :item_type,
         :location,
         :url,
+        :image,
         :transport_price,
         :description,
         :reserve_met
-      ])
+      ]
+    )
     end
 end

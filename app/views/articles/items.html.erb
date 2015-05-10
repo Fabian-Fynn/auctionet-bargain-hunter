@@ -3,58 +3,7 @@
 
 
   <div id="masonry-container" class="items clearfix">
-    <% @items.each { |item| @item = item %>
-
-      <div class="item">
-        <div class="title">
-          <h3><%= item[:title] %></h3>
-        </div>
-
-        <img src="<%= item[:images][0][:w640] %>" alt="<%= item[:title] %>" title="<%= item[:description] %>" class="item_image">
-        <div class="ending"><p>Ending in: <%= distance_of_time_in_words(Time.now, Time.at(item[:ends_at]), include_seconds: true) %></p></div>
-        <div class="estimate">
-          <p><strong>Estimated Value:</strong> <%= "#{item[:estimate]}" + item[:currency] %></p>
-        </div>
-
-        <div class="current-bid" >
-          <p><strong>Current bid: </strong>
-            <%=
-              current_bid = "0 SEK"
-              if item[:bids].any?
-                current_bid = "#{item[:bids][0][:amount]} "
-              else
-                current_bid = "0 "
-              end
-
-              current_bid += item[:currency]
-            %>
-          </p>
-        </div>
-        <div class="min-bid">
-          <p><strong>Next Bid Amount: </strong>
-          <%=
-              min_bid = "#{item[:next_bid_amount]} " + item[:currency]
-            %></p>
-        </div>
-
-        <div class="location">
-          <p><strong>Location:</strong> <%= item[:location] %></p>
-          <p><strong>Shipment:</strong> <%= item[:transport_price] %></p>
-        </div>
-
-        <div class="condition">
-          <p><strong>Item condition:</strong> <%= item[:condition]%> </p>
-        </div>
-
-        <div class="favorite">
-          <%=  button_to 'Add to Wishlist', {controller: "articles", action: "create", article: { item_id: item[:id] }} , method: :post, class: "btn btn-default"  %>
-          <a href="<%= item[:url] %>"><button class="btn btn-default">Check on Auctionet</div>
-        </div>
-
-
-      </button></a>
-
-    <% } %>
+      <%= render(partial: "item", collection: @items) || content_tag(:div, "No Items found!", class:"alert alert-danger") %>
   </div>
 
 
@@ -65,3 +14,8 @@
     $container.masonry();
   });
 </script>
+
+<% #@items.each { |item| %>
+      <% # render partial: "item", locals: {item: item} || "nope" %>
+
+    <%# } %>
