@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe "Wishlist" do
-  let!(:user) { User.create(email: email, password: password)}
+  test_user = let!(:user) { User.create(email: email, password: password)}
   let(:email) { "test@capybara.com" }
   let(:password) { "password" }
 
@@ -26,7 +26,6 @@ describe "Wishlist" do
 
   it "shows items" do
     click_link "Wishlist"
-
-    expect(page).to have_content(Article.where(user_id: current_user.id).pluck(:title).first)
+    expect(page).to have_content(Article.where(user_id: User.last.id).pluck(:title).first)
   end
 end
