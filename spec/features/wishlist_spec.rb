@@ -23,4 +23,10 @@ describe "Wishlist" do
     expect(page).to have_content("Item successfully added to Wishlist.")
     expect(Article.where(title: item_title)).to exist
   end
+
+  it "shows items" do
+    click_link "Wishlist"
+
+    expect(page).to have_content(Article.where(user_id: current_user.id).pluck(:title).first)
+  end
 end
