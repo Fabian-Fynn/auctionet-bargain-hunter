@@ -12,9 +12,9 @@ Postgres
 ##TODO
 ~~Provide different API calls~~
 
-Add items to Wishlist
+Wishlist
 
-Style
+~~Style~~
 
 Cache API calls
 
