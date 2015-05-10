@@ -13,4 +13,8 @@
 //= require jquery
 //= require jquery_ujs
 //= require twitter/bootstrap
+
+//= require masonry/masonry
+//= require masonry/jquery.masonry
+//= require masonry/jquery.imagesloaded.min
 //= require_tree .

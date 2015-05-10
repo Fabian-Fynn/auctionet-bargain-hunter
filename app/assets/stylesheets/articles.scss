@@ -1,3 +1,47 @@
 // Place all the styles related to the Articles controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.items {
+
+}
+.item {
+  width: 30%;
+  height: auto;
+  margin: 15px 1% 10px 1%;
+  padding: 2%;
+  background: #F8F8F8;
+  border: 1px solid #e7e7e7;
+
+  h3 {
+    font-size: 13pt;
+    margin-top: 0;
+    margin-bottom: 15px;
+  }
+
+  img {
+    width: 80%;
+    margin: 0 10% 15px 10%;
+  }
+
+  .favorite {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    width: auto;
+    text-align: center;
+  }
+}
+
+#masonry-container {
+  background: #FFF;
+  padding: 5px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  clear: both;
+  -webkit-border-radius: 5px;
+     -moz-border-radius: 5px;
+          border-radius: 5px;
+}
+
+.clearfix:before, .clearfix:after { content: ""; display: table; }
+.clearfix:after { clear: both; }
+.clearfix { zoom: 1; }

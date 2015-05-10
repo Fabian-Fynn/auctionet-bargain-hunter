@@ -1,13 +1,8 @@
 <h1><%= @title %></h1>
 
-<table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
 
-  <tbody>
+
+  <div id="masonry-container" class="items clearfix">
     <% @items.each { |item| @item = item %>
 
       <div class="item">
@@ -15,7 +10,7 @@
           <h3><%= item[:title] %></h3>
         </div>
 
-        <img src="<%= item[:images][0][:mini] %>" alt="<%= item[:title] %>" class="item_image">
+        <img src="<%= item[:images][0][:w200] %>" alt="<%= item[:title] %>" class="item_image">
         <div class="ending">Ending in: <%= distance_of_time_in_words(Time.now, Time.at(item[:ends_at]), include_seconds: true) %></div>
         <div class="estimate">
           <p>Estimated Value: <%= item[:estimate]%> <%= item[:currency] %></p>
@@ -40,14 +35,21 @@
           <p>Location: <%= item[:location] %></p>
         </div>
         <div class="favorite">
-          <p><%=  button_to 'Add to Wishlist', {:controller => "articles", :action => "create", article: { item_id: item[:id] }} , :method=>:post  %></p>
+          <%=  button_to 'Add to Wishlist', {controller: "articles", action: "create", article: { item_id: item[:id] }} , method: :post, class: "btn btn-default"  %>
+          <a href="<%= item[:url] %>"><button class="btn btn-default">Check on Auctionet</div>
         </div>
 
-        <div class="link"><a href="<%= item[:url] %>">Check on Auctionet.com</a></div>
-      </div>
+
+      </button></a>
 
     <% } %>
-  </tbody>
-</table>
+  </div>
+
 
 <br>
+<script type="text/javascript">
+  var $container = $('.items');
+  $container.imagesLoaded( function() {
+    $container.masonry();
+  });
+</script>
