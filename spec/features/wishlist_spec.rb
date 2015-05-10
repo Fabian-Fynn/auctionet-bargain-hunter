@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe "Wishlist" do
-  test_user = let!(:user) { User.create(email: email, password: password)}
+  let!(:user) { User.create(email: email, password: password)}
   let(:email) { "test@capybara.com" }
   let(:password) { "password" }
 
@@ -26,6 +26,20 @@ describe "Wishlist" do
 
   it "shows items" do
     click_link "Wishlist"
+
     expect(page).to have_content(Article.where(user_id: User.last.id).pluck(:title).first)
+  end
+
+  it "removes item from wishlist" do
+    item_title = within(".item:first-child") { page.find("h3").text }
+    click_button("Add to Wishlist", match: :first)
+
+    click_link "Wishlist"
+    item = page.find(".item:first-child")
+    item_title = within(item) { page.find("h3").text }
+    within(item) {click_button "Remove from Wishlist"}
+
+    expect(page).to have_content("Item was successfully removed.")
+    expect(Article.where(title: item_title, user_id: User.last.id)).to_not exist
   end
 end
