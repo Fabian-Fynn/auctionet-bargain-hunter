@@ -12,7 +12,7 @@ Postgres
 ##TODO
 ~~Provide different API calls~~
 
-Wishlist
+~~Wishlist~~
 
 ~~Style~~
 
