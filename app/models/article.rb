@@ -12,4 +12,11 @@ class Article < ActiveRecord::Base
       article.save
     }
   end
+
+  def self.batch_destroy(user_id)
+    articles = Article.where(user_id: user_id).where("ends_at < ?", Time.now.to_i)
+    articles.each { |article|
+      article.destroy
+    }
+  end
 end

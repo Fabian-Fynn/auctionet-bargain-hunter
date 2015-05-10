@@ -42,12 +42,14 @@ class ArticlesController < ApplicationController
     @items = Article.update_articles(current_user.id)
     @items = @items.sort_by { |item| item[:ends_at] }
     @title = "Wishlist:"
-    # if @items.empty?
-    #   flash[:error] = "No items found!"
-    # end
+
     render "items"
   end
 
+  def batch_destroy
+    Article.batch_destroy(current_user.id)
+    redirect_to wishlist_url, notice: 'All ended Items removed successfully.'
+  end
   # GET /articles/1
   # GET /articles/1.json
   def show

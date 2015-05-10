@@ -3,7 +3,8 @@ Rails.application.routes.draw do
   get 'articles/unrecognized' => 'articles#unrecognized', :as => "unrecognized_articles"
   get 'articles/trending' => 'articles#trending', :as => "trending_articles"
   get 'articles/search' => 'articles#search', :as => "search_articles"
-  get 'wishlist' => 'articles#wishlist', :as => "wishlist"
+  get 'articles/wishlist' => 'articles#wishlist', :as => "wishlist"
+  get 'articles/batch_destroy' => 'articles#batch_destroy', :as => "batch_destroy"
 
   resources :articles
 

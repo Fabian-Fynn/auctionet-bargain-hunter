@@ -1,12 +1,10 @@
 <h1><%= @title %></h1>
-
-
-
-  <div id="masonry-container" class="items clearfix">
-      <%= render(partial: "item", collection: @items) || content_tag(:div, "No Items found!", class:"alert alert-danger") %>
-  </div>
-
-
+  <%= if @title == "Wishlist:" && @items.any?
+    button_to 'Remove all ended items', batch_destroy_path , method: :get, class: "btn btn-default"
+      end %>
+<div id="masonry-container" class="items clearfix">
+  <%= render(partial: "item", collection: @items) || content_tag(:div, "No Items found!", class:"alert alert-danger") %>
+</div>
 <br>
 <script type="text/javascript">
   var $container = $('.items');
@@ -14,8 +12,3 @@
     $container.masonry();
   });
 </script>
-
-<% #@items.each { |item| %>
-      <% # render partial: "item", locals: {item: item} || "nope" %>
-
-    <%# } %>
