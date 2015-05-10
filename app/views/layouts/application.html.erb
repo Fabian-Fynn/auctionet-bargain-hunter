@@ -21,14 +21,16 @@
           <span class="icon-bar"></span>
         </button>
 
-        <%= link_to(
-          content_tag(:p, "Auctionet Bargain Hunter", class: "navbar-brand"),
-          if user_signed_in?
-            articles_path
-          else
-            root_path
-          end
-        )  %>
+        <%=
+          link_to(
+            content_tag(:p, "Auctionet Bargain Hunter", class: "navbar-brand"),
+            if user_signed_in?
+              articles_path
+            else
+              root_path
+            end
+          )
+        %>
 
         <div class="navbar-collapse collapse navbar-responsive-collapse">
           <ul class="nav navbar-nav">

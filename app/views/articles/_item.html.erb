@@ -25,10 +25,13 @@
   </div>
 
   <div class="min-bid">
-    <p>Next Bid Amount: <span class="green">
-    <%=
-        min_bid = "#{item[:next_bid_amount]} " + item[:currency]
-      %> </span></p>
+    <p>Next Bid Amount:
+      <span class="green">
+        <%=
+          min_bid = "#{item[:next_bid_amount]} " + item[:currency]
+        %>
+      </span>
+    </p>
   </div>
 
   <div class="location">
@@ -44,12 +47,13 @@
     <%= if @title == "Wishlist:"
       button_to 'Remove from Wishlist', {controller: "articles", action: "destroy", id: item[:id]} , method: :delete, class: "btn btn-default"
 
-
     elsif !item[:on_wishlist]
       button_to 'Add to Wishlist', {controller: "articles", action: "create", article: { item_id: item[:id] }} , method: :post, class: "btn btn-default"
     else
       content_tag(:div, "On Wishlist", class:"strong green")
     end %>
-    <a href="<%= item[:url] %>"><button class="btn btn-default">Check on Auctionet</div>
+    <a href="<%= item[:url] %>">
+      <button class="btn btn-default">Check on Auctionet</button>
+    </a>
   </div>
-</button></a>
+</div>

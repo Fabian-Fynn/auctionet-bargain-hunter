@@ -45,7 +45,6 @@ class ArticlesController < ApplicationController
     @items = Article.update_articles(current_user.id)
     @items = @items.sort_by { |item| item[:ends_at] }
     @title = "Wishlist:"
-
     render "items"
   end
 
@@ -136,27 +135,27 @@ class ArticlesController < ApplicationController
       }
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def article_params
-      params.require(:article).permit([
-        :item_id,
-        :auction_id,
-        :estimate,
-        :next_bid_amount,
-        :category_id,
-        :ends_at,
-        :currency,
-        :state,
-        :title,
-        :condition,
-        :item_type,
-        :location,
-        :url,
-        :image,
-        :transport_price,
-        :description,
-        :reserve_met
-      ]
-    )
+      params.require(:article).permit(
+        [
+          :item_id,
+          :auction_id,
+          :estimate,
+          :next_bid_amount,
+          :category_id,
+          :ends_at,
+          :currency,
+          :state,
+          :title,
+          :condition,
+          :item_type,
+          :location,
+          :url,
+          :image,
+          :transport_price,
+          :description,
+          :reserve_met
+        ]
+      )
     end
 end

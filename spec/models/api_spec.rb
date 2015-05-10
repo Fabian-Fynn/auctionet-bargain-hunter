@@ -17,7 +17,6 @@ describe "In general", ApiHandler do
       expect(article_list).to eq(410)
     end
   end
-
 end
 
 describe "An Instance of", ApiHandler do

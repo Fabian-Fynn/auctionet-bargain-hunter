@@ -1,11 +1,14 @@
 <h1><%= @title %></h1>
   <%= if @title == "Wishlist:" && @items.any?
     button_to 'Remove all ended items', batch_destroy_path , method: :get, class: "btn btn-default"
-      end %>
+  end %>
+
 <div id="masonry-container" class="items clearfix">
   <%= render(partial: "item", collection: @items) || content_tag(:div, "No Items found!", class:"alert alert-danger") %>
 </div>
+
 <br>
+
 <script type="text/javascript">
   var $container = $('.items');
   $container.imagesLoaded( function() {
